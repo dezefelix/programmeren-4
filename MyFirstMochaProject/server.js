@@ -34,5 +34,8 @@ app.use('/api/v2', require('./routes/api_v2'));
 
 //start server
 app.listen(port, function() {
-    console.log("Deze magic happens op port " + port + ".");
+    console.log("De magie gebeurt op port " + port + ".");
 });
+
+//export module
+module.exports = app;

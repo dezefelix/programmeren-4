@@ -6,12 +6,45 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/info', function(req, res) {
+var recipes = require('../recipes');
+
+router.get('/info', function (req, res) {
     res.status(200);
-    res.json({"description": "Welcome to the info page. Unfortunately there is no info though."})
+    res.json({"description": "Server om NodeJS te oefenen (programmeren 4)"});
 });
 
-router.get('*', function(request, response) {
+router.get('/recipes', function (req, res) {
+    res.status(200);
+
+    var category = req.query.category || '';
+
+    if (category !== '') {
+        var recipe = recipes.filter(function (r) {
+            return (r.category.toLowerCase() === category.toLowerCase());
+        });
+    } else {
+        recipe = recipes;
+    }
+
+    res.json(recipe);
+});
+
+router.get('/recipes', function (req, res) {
+    res.status(200);
+    res.json(recipes);
+
+});
+
+router.get('/recipes/:number', function (req, res) {
+    res.status(200);
+
+    var number = req.params.number || '';
+    var recipe = recipes[number - 1];
+
+    res.json(recipe);
+});
+
+router.get('*', function (request, response) {
     response.status(404);
     response.json({
         "description": "404 - Page not found. So sorry."
