@@ -8,12 +8,23 @@ var recipes = [
     {
         name: 'Lasagne',
         category: 'Pasta',
-        procedure: 'Steps for making lasagne'
+        procedure: 'Steps for making lasagne',
+        ingredients: [
+            'Dough',
+            'Cheese',
+            'Meat',
+            'Creme freche',
+            'Red sauce'
+        ]
     },
     {
         name: 'Calzone',
         category: 'Pizza',
-        procedure: 'Steps to make calzone (pizza)'
+        procedure: 'Steps to make calzone (pizza)',
+        ingredients: [
+            'Pizza dough',
+            'Cheese'
+        ]
     },
     {
         name: 'Tuna Salad',
@@ -21,6 +32,10 @@ var recipes = [
         procedure: [
             'Mix ingredients in a bowl',
             'Chill before serving'
+        ],
+        ingredients: [
+            'Tuna',
+            'Lettuce'
         ]
     }
 ];

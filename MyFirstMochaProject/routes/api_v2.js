@@ -29,6 +29,18 @@ router.get('/recipes', function (req, res) {
     res.json(recipe);
 });
 
+// router.get('/recipes', function(req, res) {
+//     res.status(200);
+//
+//     var ingredient = req.query.ingredient || '';
+//
+//     var recipe = recipes.filter(function(r) {
+//         return (r.ingredient.toLowerCase() === ingredient.toLowerCase());
+//     });
+//
+//     res.json(recipe);
+// });
+
 router.get('/recipes', function (req, res) {
     res.status(200);
     res.json(recipes);
