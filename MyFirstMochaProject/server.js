@@ -30,6 +30,7 @@ app.get('/index', function(req, res) {
 //routes
 app.use('/api/v1', require('./routes/api_v1'));
 app.use('/api/v2', require('./routes/api_v2'));
+app.use('/api/v3', require('./routes/api_v3'));
 
 
 //start server

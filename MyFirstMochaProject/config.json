@@ -2,7 +2,7 @@
   "secretkey": "MyFirstServerSuperSecretKey-123456789",
   "dbUsername": "root",
   "dbPassword":  "",
-  "dbSchema": "sakila",
+  "dbSchema": "world",
   "dbServer": "localhost",
   "webPort": "8080"
 }
