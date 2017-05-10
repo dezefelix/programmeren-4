@@ -1,8 +1,8 @@
 {
   "secretkey": "MyFirstServerSuperSecretKey-123456789",
-  "dbUsername": "database_name",
-  "dbPassword":  "supersecret",
-  "dbSchema": "database_schema",
+  "dbUsername": "root",
+  "dbPassword":  "",
+  "dbSchema": "sakila",
   "dbServer": "localhost",
   "webPort": "8080"
 }
