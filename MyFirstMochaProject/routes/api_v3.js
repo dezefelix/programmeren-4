@@ -8,23 +8,75 @@ var router = express.Router();
 var pool = require('../db/db_connector');
 
 
-// router.get('/cities', function (req, res) {
-//     var query_str;
-//     if (citi) {
-//         query_str = 'SELECT * FROM actor_info WHERE last_name = "' +lastname+'";';
-//     } else {
-//         query_str = "SELECT * FROM actor_info";
-//     }
+//select all cities or one city by name
+router.get('/cities/:id?', function (req, res) {
 
-// pool.getConnection(function (err, connection) {
-//     connection.query(query_str, function (err, rows, fields) {
-//         connection.release();
-//         if (err) {
-//             throw err
-//         }
-//         res.status(200).json(rows);
-//     });
-// });
+    var cityID = req.params.id || '';
+    var query = '';
+
+    if (cityID) {
+        query = 'SELECT * FROM city WHERE ID = "' + cityID + '";'
+    } else {
+        query = 'SELECT * FROM city';
+    }
+
+    pool.getConnection(function (err, connection) {
+        connection.query(query, function (err, rows, fields) {
+            connection.release();
+            if (err) {
+                throw err
+            }
+            res.status(200).json(rows);
+        });
+    });
+});
+
+//add city
+router.post('/cities/new/:id', function (req, res) {
+
+    var cityID = req.params.id;
+
+    var query = 'INSERT INTO city VALUES("' + cityID + '", "Nieuwstad", "NLD",' +
+        '"Noord-Brabant", "9001")';
+
+    pool.getConnection(function (err, connection) {
+        connection.query(query, function (err, rows, fields) {
+            connection.release();
+            if (err) {
+                throw err;
+            }
+            console.log('New city created with primary key ' + cityID);
+            res.status(200).json(rows);
+        })
+    });
+});
+
+//Search for a city
+router.get('/cities/search', function(req, res) {
+
+    var name = req.query.name || '';
+    var query = '';
+
+    if (name) {
+        query = "SELECT * FROM city where Name = '" + name + "';";
+        console.log(query);
+    }
+
+    if (query !== '') {
+        pool.getConnection(function (err, connection) {
+            connection.query(query, function (err, rows) {
+                connection.release();
+                if (err) {
+                    throw err;
+                }
+                res.status(200).json(rows);
+            })
+        })
+    } else {
+        console.log('Search query is empty.');
+        res.send('Search query is empty. Example query: /api/v3/cities/search?name=Amsterdam .');
+    }
+});
 
 //select countries, filtered on continent an set an optional limit to amount of countries shown.
 router.get('/countries/search', function(req, res) {
@@ -108,7 +160,7 @@ router.post('/countries/new/:code', function (req, res) {
 
 //update country
 //WERKT NOG NIET. RUNT WEL ZONDER ERRORS, MAAR UPDATE NOG GEEN DATA.
-router.post('/countries/update/:code/:name', function (req, res) {
+router.put('/countries/update/:code/:name', function (req, res) {
 
     var landCode = req.params.code;
     var name = req.params.name;
